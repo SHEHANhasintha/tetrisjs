@@ -1,7 +1,7 @@
 body{
 	background-color:#000;
 	margin:0px;
-	/*overflow-y: hidden;*/
+	overflow-y: hidden;
 }
 
 #canvasCover{

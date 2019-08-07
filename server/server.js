@@ -35,18 +35,22 @@ server.httpServer.on('request', (request,responce) => {
 	let pathVar = server.pathmodel(parsedUrl.source);
 	responce.statusCode = 200;
 	contentformat = parsedUrl.path.trim();
-	console.log(url,contentformat);
+	//console.log(url,contentformat);
 
 	let content = fs.readdir(pathVar,async (err,data) => {
+		console.log(data);
 		for (let i=0;i<data.length;i++){
+
 			await server.readFiles(pathVar,data[i],async function(file){
 				await console.log();
 				contentOut = file;
 				//console.log(file)
+
 				if (server.availableFormats[contentformat] != undefined){
 					server.responceContent(responce,server.availableFormats[contentformat],200,contentOut);
 				} else if (contentformat.trim() == ''){
 					let res = contentOut;
+					//console.log('ok',responce)
 					server.responceContent(responce,'text/html',200,res);
 				} else {
 					let res = 'not Found';
@@ -66,21 +70,25 @@ server.parser = function(url){
 	properties.file = url[url.length - 1];
 	properties.source = preurl.replace(properties.file,'');
 	properties.path = url[url.length - 1].split('.')[url[url.length - 1].split('.').length - 1];
+	//console.log(properties)
 	return properties;
 }
 
-//define and configure the parts of path
+//defe and configure the parts of path
 server.pathmodel = function(patModel){
-	let baseDir = path.join(__dirname , '../' + patModel);
+	let baseDir = path.join(__dirname , '../src/' + patModel);
+	console.log(path.join(__dirname , '../src/' + patModel))
 	return baseDir;
 }
 
 //read the file and return the content of the file
 server.readFiles = function(dir,currFile,callback){
 	return new Promise(async function(resolve,reject){
-		await fs.readFile(dir+ '/' + currFile,(err,filenow) => {
+		await fs.readFile(dir + currFile,'utf8',(err,filenow) => {
+			//console.log(dir + currFile);
 			if (!err){
-				console.log(filenow,currFile)
+				//console.log(filenow,currFile)
+				//xxconsole.log(dir+ 'src/' + currFile);
 				resolve(callback(filenow));
 			}else{
 				
@@ -89,6 +97,7 @@ server.readFiles = function(dir,currFile,callback){
 
 		});
 	}).catch(function(err){
+		//console.log(err)
 	})
 }
 
