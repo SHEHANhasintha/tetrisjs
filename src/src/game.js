@@ -1,3 +1,102 @@
+/*
+//Example object litteral.!!!!!!!!!
+
+GraniteRight {movableRight: true, movableLeft: true, movableUp: true, movableDown: true, rotatableLeft: true, …}
+	
+	brickValue: 0
+	center: {x: 35, y: 20}
+	centerBrickX: 20
+	centerBrickY: 35
+	color: "rgb(61,56,222)"
+	cos90: 0
+	downMove: true
+	eveMment: true
+	gra: 0.1
+	leftMove: true
+	moo: 0
+	movableDown: true
+	movableLeft: true
+	movableRight: true
+	movableUp: true
+	name: "basault13"
+	ncos90: 0
+	nsin90: -1
+	posLocked: false
+	rightMove: true
+	rotatableLeft: true
+	rotatableRight: true
+	rotateLeft: true
+	rotateRight: true
+	shapeArr: (4) [{…}, {…}, {…}, {…}]
+	sin90: 1
+	tileArr: (10000) [Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, Tile, …]
+	tiles: {[0:0]: {…}, [0:1]: {…}, [0:2]: {…}, [0:3]: {…}, [0:4]: {…}, …}
+	upMove: true
+	getBasaltId: (...)
+
+		__proto__: CharObject
+		constructor: class GraniteRight
+		getBasaltId: (...)
+		makeObject: ƒ makeObject()
+		moveUp: ƒ moveUp()
+
+			__proto__: CollitionDitection
+			addBrick: ƒ addBrick(currentPos,fillValue)
+			constructor: class CharObject
+			draw: ƒ draw()
+			eventMovement: eventMovement(){
+			document.addEventListener('keypress',(e) => {…}
+			getBasaltId: (...)
+			gotoCenter: ƒ gotoCenter(currentPos)
+			gotoDown: ƒ gotoDown(currentPos)
+			gotoLeft: ƒ gotoLeft(currentPos)
+			gotoRight: ƒ gotoRight(currentPos)
+			gotoUp: ƒ gotoUp(currentPos)
+			gravity: ƒ gravity()
+			logBasalt: ƒ logBasalt()
+			moveDown: ƒ moveDown()
+			moveLeft: ƒ moveLeft()
+			moveRight: ƒ moveRight()
+			moveUp: ƒ moveUp()
+			possDistanceUpdate: ƒ possDistanceUpdate()
+			randomColorGenrator: ƒ randomColorGenrator(value)
+			resetArr: ƒ resetArr()
+			turnLeft: ƒ turnLeft()
+			turnRight: ƒ turnRight()
+			set basaltId: ƒ basaltId(id)
+			get getBasaltId: ƒ getBasaltId()
+
+				__proto__:
+				constructor: class CollitionDitection
+				plankCheck: ƒ plankCheck()
+
+					__proto__: Object
+
+*/
+
+
+
+/*
+Example tile coardinate system!!!!!!!!!!!!!!
+	bottomRightX: 130
+	bottomRightY: 700
+	canvas: CanvasRenderingContext2D {canvas: canvas#canvas, globalAlpha: 1, globalCompositeOperation: "source-over", filter: "none", imageSmoothingEnabled: true, …}
+	codenessX: 12
+	codenessY: 0
+	downLeftX: 120
+	downLeftY: 700
+	fillValue: false
+	tileColor: undefined
+	tileId: 1200
+	topLeftX: 120
+	topLeftY: 690
+	topRightX: 130
+	topRightY: 690
+
+*/
+
+
+
 //real time communication with the server over to the client
 class SocketWs{
 
@@ -33,96 +132,51 @@ class SocketWs{
 
 }
 
-//drawing pannel
-class Canvas{
-	constructor(width=window.innerWidth/2,height=window.innerHeight/2){
-		this.height = height;
-		this.width = width;
-		this.canvas;
-
-		Canvas.Width = this.width;
-		Canvas.height = this.height;
-	}
-
-	makeCanvas(){
-		var img = new Image();
-		const canvas = document.getElementById("canvas");
+//define movable tiles
+class Tile{
+	constructor(tileId,codenessX,codenessY,downLeftX,downLeftY,topLeftX,topLeftY,topRightX,topRightY,bottomRightX,bottomRightY,canvas,tileColor){
+		//codenessX,codenessY,downLeftX,downLeftY,topLeftX,topLeftY,topRightX,topRightY,bottomRightX,bottomRightY,this.canvas,tileColor
+		//this.canvas = canvas.getContext('2d');
+		this.tileId = tileId;
+		this.codenessX = codenessX;
+		this.codenessY = codenessY;
+		this.downLeftX = downLeftX;
+		this.downLeftY = downLeftY;
+		this.topRightX = topRightX;
+		this.topRightY = topRightY;
+		this.topLeftX = topLeftX;
+		this.topLeftY = topLeftY;
+		this.bottomRightX = bottomRightX;
+		this.bottomRightY = bottomRightY;
+		this.tileColor = tileColor;
+		this.fillValue = false;
 		this.canvas = canvas;
-		const panel = canvas.getContext("2d");
-		canvas.width = this.height;
-		canvas.height = this.width;
-		//panel.fillStyle = "#FF0000";
-		//panel.drawImage(img, 0, 0, 1000, 1000);
-		//panel.fillRect(0, 0, this.height, this.width);
-		//canvas.toDataURL('image/jpeg');
-		return panel;
 	}
 
-}
+	drawlines(){
+		this.canvas.beginPath();
+				
 
-//get images and base code from the server
-class XhttpReq{
-	constructor(method,address){
-		this.method = method;
-		this.address = address;
-	}
+		//this.canvas.strokeStyle = "#0f00";
 
-	makeRequest(){
-		let result;
-		let xhr = new XMLHttpRequest();
-		xhr.open(this.method, this.address, false);
-		xhr.onload = async function(){
-			if (xhr.readyState === 4 && xhr.status === 200){
-				let response = xhr.responseText;
-				let binary = '';
-				let encodedData;
-				 console.log(xhr.status)
+		this.canvas.moveTo(this.bottomRightX,this.bottomRightY);
+		this.canvas.lineTo(this.downLeftX,this.downLeftY);
+		this.canvas.lineTo(this.topLeftX,this.topLeftY);
 
-				for(let i=0;i<response.length-1;i++){
-					binary += String.fromCharCode(response.charCodeAt(i) & 0xff);
-				}
-
-				encodedData = 'data:image/jpeg;base64,' + btoa(binary);
-				result = encodedData;
-				return result;
-			}
-		}
-		xhr.overrideMimeType('text/plain; charset=x-user-defined');
-		xhr.send();
-		return result;
-	}
-
-	cute(){
-		return "fgdfgdfgdfgdfg";
-	}
-
-}
-
-//images for the object
-class ObjectManx{
-	constructor(widthOb,heightOb,location,canvas,x,y){
-		this.widthOb = widthOb;
-		this.heightOb = heightOb;
-		this.location = location;
-		this.canvas = canvas;
-		this.imgDataUrl;
-		this.x = x;
-		this.y = y;
+		this.canvas.lineTo(this.topRightX,this.topRightY);
+		this.canvas.lineTo(this.bottomRightX,this.bottomRightY);
+		this.canvas.fillStyle = this.tileColor;
+		this.canvas.lineWidth = 0;
+		this.canvas.fill();
+		this.canvas.fillStyle = '#000';
+		this.canvas.font = "12px Arial";
+		this.canvas.fillText(  this.codenessX + ' ' + this.codenessY,this.topLeftX+5,this.topLeftY+15 );
+		this.canvas.closePath();
+		//this.canvas.stroke();
 
 	}
 
-	getImage(){
-		let Xhtt = new XhttpReq('GET',this.location,true).makeRequest();
-		this.imgDataUrl = Xhtt;
-	}
 
-	drawImage(){
-		let image = new Image();
-		image.src = this.imgDataUrl;
-		//var imag=document.getElementById("img");
-		//imag.src=this.imgDataUrl;
-		this.canvas.drawImage(image, this.x, this.y);
-	}
 
 }
 
@@ -236,52 +290,8 @@ class CollitionDitection{
 	}
 }
 
-//define movable tiles
-class Tile{
-	constructor(tileId,codenessX,codenessY,downLeftX,downLeftY,topLeftX,topLeftY,topRightX,topRightY,bottomRightX,bottomRightY,canvas,tileColor){
-		//codenessX,codenessY,downLeftX,downLeftY,topLeftX,topLeftY,topRightX,topRightY,bottomRightX,bottomRightY,this.canvas,tileColor
-		//this.canvas = canvas.getContext('2d');
-		this.tileId = tileId;
-		this.codenessX = codenessX;
-		this.codenessY = codenessY;
-		this.downLeftX = downLeftX;
-		this.downLeftY = downLeftY;
-		this.topRightX = topRightX;
-		this.topRightY = topRightY;
-		this.topLeftX = topLeftX;
-		this.topLeftY = topLeftY;
-		this.bottomRightX = bottomRightX;
-		this.bottomRightY = bottomRightY;
-		this.tileColor = tileColor;
-		this.fillValue = false;
-		this.canvas = canvas;
-	}
-
-	drawlines(){
-		this.canvas.beginPath();
-				
-
-		//this.canvas.strokeStyle = "#0f00";
-
-		this.canvas.moveTo(this.bottomRightX,this.bottomRightY);
-		this.canvas.lineTo(this.downLeftX,this.downLeftY);
-		this.canvas.lineTo(this.topLeftX,this.topLeftY);
-
-		this.canvas.lineTo(this.topRightX,this.topRightY);
-		this.canvas.lineTo(this.bottomRightX,this.bottomRightY);
-		this.canvas.fillStyle = this.tileColor;
-		this.canvas.lineWidth = 0;
-		this.canvas.fill();
-		this.canvas.fillStyle = '#000';
-		this.canvas.font = "12px Arial";
-		this.canvas.fillText(  this.codenessX + ' ' + this.codenessY,this.topLeftX+5,this.topLeftY+15 );
-		this.canvas.closePath();
-		//this.canvas.stroke();
-	}
 
 
-
-}
 
 //create tile objects
 class TilesManupiulate extends CollitionDitection{
@@ -358,6 +368,8 @@ class TilesManupiulate extends CollitionDitection{
 					'tileId'	: this.tileCount,
 					'codenessX' : codenessX,
 					'codenessY' : codenessY,
+
+					/*
 					'downLeftX' : downLeftX,
 					'downLeftY' : downLeftY,
 					'topLeftX'	: topLeftX,
@@ -365,7 +377,8 @@ class TilesManupiulate extends CollitionDitection{
 					'topRightX'	: topRightX,
 					'topRightY' : topRightY,
 					'bottomRightX' : bottomRightX,
-					'bottomRightY' : bottomRightY,
+					'bottomRightY' : bottomRightY,*/
+
 					'fillValue' : this.fillValue
 				}
 
@@ -376,6 +389,139 @@ class TilesManupiulate extends CollitionDitection{
 	}
 
 }
+
+
+//drawing pannel
+class Canvas extends TilesManupiulate{
+	constructor(width=window.innerWidth/2,height=window.innerHeight/2){
+		super();
+		this.height = height;
+		this.width = width;
+		this.canvas;
+
+		Canvas.Width = this.width;
+		Canvas.height = this.height;
+
+		this.winWidth =  document.documentElement.clientWidth;
+		this.winHeight =  document.documentElement.clientHeight;
+
+
+	}
+
+	makeCanvas(){
+		var img = new Image();
+		const canvas = document.getElementById("canvas");
+		this.canvas = canvas;
+		const panel = canvas.getContext("2d");
+		canvas.width =  document.documentElement.clientWidth - 300;
+		canvas.height =  document.documentElement.clientHeight - 100;
+		
+		//panel.fillStyle = "#FF0000";
+		//panel.drawImage(img, 0, 0, 1000, 1000);
+		//panel.fillRect(0, 0, this.height, this.width);
+		//canvas.toDataURL('image/jpeg');
+		return panel;
+	}
+
+	async responsiveScaller(){
+		let winCheckWidth = this.winWidth;
+		let winCheckHeight = this.winHeight;
+		let wRatio = document.documentElement.clientWidth / this.winWidth;
+		let hRatio = document.documentElement.clientHeight / this.winHeight;
+
+		if ((winCheckWidth != document.documentElement.clientWidth) || (winCheckHeight != document.documentElement.clientHeight)){
+			//console.log("this is height and width of the screen" + wRatio + "   " + hRatio );
+			console.log( TilesManupiulate.arrTile);
+			this.winWidth =  document.documentElement.clientWidth;
+			this.winHeight =  document.documentElement.clientHeight;
+
+			canvas.width = canvas.width * hRatio;
+			canvas.height = canvas.height * hRatio;
+
+			for (let chArr=0;chArr<TilesManupiulate.arrTile.length;chArr++){
+				TilesManupiulate.arrTile[chArr].downLeftX = TilesManupiulate.arrTile[chArr].downLeftX * hRatio;
+				TilesManupiulate.arrTile[chArr].topLeftX = TilesManupiulate.arrTile[chArr].topLeftX * hRatio;
+				TilesManupiulate.arrTile[chArr].downLeftY = TilesManupiulate.arrTile[chArr].downLeftY * hRatio;
+				TilesManupiulate.arrTile[chArr].topLeftY = TilesManupiulate.arrTile[chArr].topLeftY * hRatio;
+				TilesManupiulate.arrTile[chArr].topRightX = TilesManupiulate.arrTile[chArr].topRightX * hRatio;
+				TilesManupiulate.arrTile[chArr].topRightY = TilesManupiulate.arrTile[chArr].topRightY * hRatio;
+				TilesManupiulate.arrTile[chArr].bottomRightX = TilesManupiulate.arrTile[chArr].bottomRightX * hRatio;
+				TilesManupiulate.arrTile[chArr].bottomRightY = TilesManupiulate.arrTile[chArr].bottomRightY * hRatio;
+
+			}
+		}
+	}
+
+}
+
+//get images and base code from the server
+class XhttpReq{
+	constructor(method,address){
+		this.method = method;
+		this.address = address;
+	}
+
+	makeRequest(){
+		let result;
+		let xhr = new XMLHttpRequest();
+		xhr.open(this.method, this.address, false);
+		xhr.onload = async function(){
+			if (xhr.readyState === 4 && xhr.status === 200){
+				let response = xhr.responseText;
+				let binary = '';
+				let encodedData;
+				 console.log(xhr.status)
+
+				for(let i=0;i<response.length-1;i++){
+					binary += String.fromCharCode(response.charCodeAt(i) & 0xff);
+				}
+
+				encodedData = 'data:image/jpeg;base64,' + btoa(binary);
+				result = encodedData;
+				return result;
+			}
+		}
+		xhr.overrideMimeType('text/plain; charset=x-user-defined');
+		xhr.send();
+		return result;
+	}
+
+	cute(){
+		return "fgdfgdfgdfgdfg";
+	}
+
+}
+
+//images for the object
+class ObjectManx{
+	constructor(widthOb,heightOb,location,canvas,x,y){
+		this.widthOb = widthOb;
+		this.heightOb = heightOb;
+		this.location = location;
+		this.canvas = canvas;
+		this.imgDataUrl;
+		this.x = x;
+		this.y = y;
+
+	}
+
+	getImage(){
+		let Xhtt = new XhttpReq('GET',this.location,true).makeRequest();
+		this.imgDataUrl = Xhtt;
+	}
+
+	drawImage(){
+		let image = new Image();
+		image.src = this.imgDataUrl;
+		//var imag=document.getElementById("img");
+		//imag.src=this.imgDataUrl;
+		this.canvas.drawImage(image, this.x, this.y);
+	}
+
+}
+
+
+
 
 //camara
 class Camara{
@@ -393,6 +539,9 @@ class Camara{
 		this.rightTop = {};
 		this.bottomLeft = {};
 		this.bottomRight = {};
+
+		this.shutterWidth;
+		this.shutterHeight;
 
 		//positionArr
 		this.positionArr = new Array();
@@ -416,8 +565,8 @@ class Camara{
 		this.bottomLeft.x = this.positionLock.x - (this.scallerWidth/2);
 		this.bottomRight.x = this.positionLock.x + (this.scallerWidth/2);
 
-		this.bottomLeft.y = this.positionLock.y - (this.scallerHeight/2);
-		this.bottomRight.y = this.positionLock.y - (this.scallerHeight/2);
+		this.bottomLeft.y = (this.positionLock.y - (this.scallerHeight/2));
+		this.bottomRight.y = (this.positionLock.y - (this.scallerHeight/2));
 
 		//console.log(this.leftTop,this.rightTop,this.bottomLeft,this.bottomRight)
 
@@ -447,9 +596,12 @@ class Camara{
 		//scaleSizeX = 2.5;
 		//scaleSizeY = 2.5;
 		this.dragY = (TilesManupiulate.verticalLines -this.leftTop.y) * this.scaleSizeY * (Canvas.height / TilesManupiulate.verticalLines);
-		this.dragX = (this.leftTop.x) * this.scaleSizeX * (Canvas.Width / TilesManupiulate.horizeLines);
-		//console.log(this.dragX)
 		
+		this.dragX = (this.leftTop.x) * this.scaleSizeX * (Canvas.Width / TilesManupiulate.horizeLines);
+		//console.log(this.dragY,this.scallerHeight,Canvas.height,TilesManupiulate.verticalLines)
+		this.dragY = 560;
+
+		//this.dragY = 790;
 		//console.log(this.scaleSizeY,this.scaleSizeX,this.dragY,'yyyyyyyyyyyyy')
 		for (let scaleCount=0;scaleCount<this.positionArr.length;scaleCount++){
 			let currentPos = TilesManupiulate.arrTile[this.positionArr[scaleCount]];
@@ -478,6 +630,8 @@ class Helper{
 		this.cos90 = 0;
 		this.nsin90 = -1;
 		this.ncos90 = 0;
+
+		this.counter = 0;
 	}
 
 	static rotateLeft(currentPoint,centerBrickX,centerBrickY){
@@ -513,6 +667,19 @@ class Helper{
 		let codenessXDash = currentPoint.codenessX + 1;
 		let codenessYDash = currentPoint.codenessY;
 		return [codenessXDash,codenessYDash];
+	}
+
+	static printer(statement,speed){
+		this.counter++;
+		for (;this.counter>speed;this.counter++){
+			console.log(statement);
+			this.counter = 0;
+		}
+	}
+
+	static pointTileArr(coadinate){
+		console.log(TilesManupiulate.tileArr[coadinate]);
+
 	}
 
 }
@@ -587,7 +754,7 @@ class BoundryBlock extends Block{
 		//this part is hard coded in order to get the right limitation of boundry
 		for (let blockNumX=0; blockNumX<this.boundryCodenesArrY.length; blockNumX++){
 			this.blockCodenessX = this.boundryCodenesArrY[blockNumX];
-			for (let blockNumY=0; blockNumY<this.verticalLines; blockNumY++){
+			for (let blockNumY=2; blockNumY<35; blockNumY++){
 				this.blockCodenessY = blockNumY;
 				codenesSet = `[${this.blockCodenessX}:${this.blockCodenessY}]`;
 				//console.log(codenesSet,TilesManupiulate.tiles[codenesSet]);
@@ -598,7 +765,7 @@ class BoundryBlock extends Block{
 
 		for (let blockNumX=0; blockNumX<this.boundryCodenesArrX.length; blockNumX++){
 			this.blockCodenessX = this.boundryCodenesArrX[blockNumX];
-			for (let blockNumY=0; blockNumY<this.horizeLines; blockNumY++){
+			for (let blockNumY=15; blockNumY<32; blockNumY++){
 				this.blockCodenessY = blockNumY;
 				codenesSet = `[${this.blockCodenessY}:${this.blockCodenessX}]`;
 				//console.log(codenesSet,TilesManupiulate.tiles[codenesSet]);
@@ -650,6 +817,8 @@ class CharObject extends CollitionDitection{
 		this.cos90 = 0;
 		this.nsin90 = -1;
 		this.ncos90 = 0;
+
+		this.eveMment = true;
 	}
 
 	set basaltId(id){
@@ -1019,38 +1188,44 @@ class CharObject extends CollitionDitection{
 	eventMovement(){
 		document.addEventListener('keypress',(e) => {
 			let key = e.which;
-			switch (key){
-				case 100:
-					//console.log('up',e)
-					this.turnRight();
-					break;
-				case 97:
-					//console.log('left',e);
-					this.turnLeft();
-					break;
+			this.eveMment = (this.posLocked == true) ? false : true;
+			if (this.eveMment){
+				switch (key){
+					case 100:
+						//console.log('up',e)
+						this.turnRight();
+						break;
+					case 97:
+						//console.log('left',e);
+						this.turnLeft();
+						break;
+				}
 			}
 		})
 
 		document.addEventListener('keydown',(e) => {
 			let key = e.which;
-			switch (key){
-				case 38:
-					//console.log('up',e)
-					this.moveUp();
-					break;
-				case 37:
-					//console.log('left',e);
-					this.moveLeft();
-					break;
-				case 39:
-					this.moveRight();
-					//console.log('right',e);
-					break;
-				case 40:
-					this.moveDown();
-					//console.log('down',e);
-					break;
+			this.eveMment = (this.posLocked == true) ? false : true;
+			if (this.eveMment){
+				switch (key){
+					case 38:
+						//console.log('up',e)
+						this.moveUp();
+						break;
+					case 37:
+						//console.log('left',e);
+						this.moveLeft();
+						break;
+					case 39:
+						this.moveRight();
+						//console.log('right',e);
+						break;
+					case 40:
+						this.moveDown();
+						//console.log('down',e);
+						break;
 
+				}
 			}
 		})
 
@@ -1125,6 +1300,11 @@ class Basalt extends CharObject{
 	}
 
 	moveUp(){}
+
+	//moveLeft','moveRight','moveUp','moveDown
+
+	turnLeft(){}
+
 
 }
 
@@ -1218,7 +1398,7 @@ class Diamand extends CharObject{
 		this.addBrick(currentPos,true)
 	}
 
-	//moveUp(){}
+	moveUp(){}
 }
 
 //straight line stick shaped oject
@@ -1264,7 +1444,7 @@ class Limestone extends CharObject{
 
 	}
 
-	//moveUp(){}
+	moveUp(){}
 }
 
 //very rectanluar shaped object
@@ -1289,6 +1469,8 @@ class Marble extends CharObject{
 		this.name = this.getBasaltId;
 		//this.name;
 		this.shapeArr = [];
+
+
 	}
 
 	makeObject(){
@@ -1307,10 +1489,9 @@ class Marble extends CharObject{
 
 		currentPos = this.gotoCenter(currentPos);
 		
-		
-
-
 	}
+
+	moveUp(){}
 }
 
 //dancing figure looking object
@@ -1355,9 +1536,9 @@ class Granite extends CharObject{
 
 		currentPos = this.gotoCenter(currentPos);
 		
-
-
 	}
+
+	moveUp(){}
 }
 
 
@@ -1406,6 +1587,8 @@ class GraniteRight extends CharObject{
 
 
 	}
+
+	moveUp(){}
 }
 
 class Generaion extends CharObject{
@@ -1413,41 +1596,53 @@ class Generaion extends CharObject{
 		super();
 		this.dropStatus = true;
 		this.objectArr = [];
+		Generaion.objectArr = [];
 		this.Grid = Grid;
 		
-
-	//object examples for test execution
-	const basalt1 = new Basalt('#ffffff',{x:5,y:7},this.Grid,this.Grid.arrTile,0.1);
-	const Diamand1 = new Diamand('#ffffff',{x:12,y:17},this.Grid,this.Grid.arrTile,0.1);
-	const Limestone1 = new Limestone('#ffffff',{x:9,y:17},this.Grid,this.Grid.arrTile,0.1);
-	const marble1 = new Marble('#ffffff',{x:12,y:19},this.Grid,this.Grid.arrTile,0.1);
-	const Granite1 = new Granite('#ffffff',{x:13,y:22},this.Grid,this.Grid.arrTile,0.1);
-	const GraniteRight1 = new GraniteRight('#ffffff',{x:22,y:28},this.Grid,this.Grid.arrTile,0.1);
-	const basaltRight1 = new BasaltRight('#ffffff',{x:7,y:16},this.Grid,this.Grid.arrTile,0.1);
-
-	this.availableObjects = [basalt1,Diamand1,Limestone1,marble1,Granite1,GraniteRight1,basaltRight1];
-
+		this.localStartCoardinarte = {x:27,y:25}
+	
 	}
 
-	createObject(){
+	 async createObject(){
 		//for (let object=0; object<)
-		let randomObject;
-		if (this.dropStatus = true){
-			randomObject = this.availableObjects[Math.floor(Math.random()*this.availableObjects.length)];
-			//.log(randomObject);
-			randomObject.makeObject();
-			randomObject.eventMovement();
-			randomObject.plankCheck();
-			//randomObject.draw();
-			this.objectArr.push(randomObject);
-		}
 
-		//const Limestone1 = new Limestone('#ffffff',{x:9,y:17},Grid,Grid.arrTile,0.1);
+		return await new Promise((resolve,reject) => {
+			let randomObject;		
 
-		/*Limestone1.makeObject();
-		Limestone1.eventMovement();
-		Limestone1.plankCheck();
-*/
+			//object examples for test execution
+			const basalt1 = new Basalt('#ffffff',this.localStartCoardinarte,this.Grid,this.Grid.arrTile,0.1);
+			const Diamand1 = new Diamand('#ffffff',this.localStartCoardinarte,this.Grid,this.Grid.arrTile,0.1);
+			const Limestone1 = new Limestone('#ffffff',this.localStartCoardinarte,this.Grid,this.Grid.arrTile,0.1);
+			const marble1 = new Marble('#ffffff',this.localStartCoardinarte,this.Grid,this.Grid.arrTile,0.1);
+			const Granite1 = new Granite('#ffffff',this.localStartCoardinarte,this.Grid,this.Grid.arrTile,0.1);
+			const GraniteRight1 = new GraniteRight('#ffffff',this.localStartCoardinarte,this.Grid,this.Grid.arrTile,0.1);
+			const basaltRight1 = new BasaltRight('#ffffff',this.localStartCoardinarte,this.Grid,this.Grid.arrTile,0.1);
+
+			let availableObjects = [basalt1,Diamand1,Limestone1,marble1,Granite1,GraniteRight1,basaltRight1];
+
+			if (this.dropStatus == true){
+				randomObject = availableObjects[Math.floor(Math.random()*availableObjects.length)];
+				//.log(randomObject);
+
+				
+				randomObject = Object.create(randomObject);
+				//randomObject
+				randomObject.makeObject();
+
+				//randomObject.posLocked = false;
+				//randomObject.__proto__.center = {x: 20, y: 20};
+				//randomObject.__proto__.__proto__.__proto__.__proto__.plankCheck();
+				//Helper.printer(randomObject.__proto__.center,10);
+
+				randomObject.eventMovement();
+				randomObject.plankCheck();
+				//console.log(this.objectArr);
+				//randomObject.draw();
+				this.objectArr.push(randomObject);
+				Generaion.objectArr.push(randomObject);
+				resolve(1);
+			}
+		})
 
 	}
 
@@ -1463,14 +1658,222 @@ class Generaion extends CharObject{
 
 }
 
+class Distroy extends Generaion{
+	constructor(horiz,vertics,generation){
+		super();
+		this.filled = new Array();
+		this.horizFill = new Array();
+		this.horiz = horiz;
+		this.vertics = vertics;
+		this.generation = generation;
+
+		
+	}
+
+
+	fillValueCollector(){
+		//Helper.printer("");
+		let cheXFill = true;
+		//let key = `[${codenessX}:${codenessY}]`;
+		//vertics
+
+		//vertics means the size of the vertical lines
+		//horiz menas the size of the horizantal lines
+		for (let v=this.vertics[0];v<this.vertics[1];v++){
+			for (let i=this.horiz[0];i<this.horiz[1];i++){
+				if (TilesManupiulate.arrTile[TilesManupiulate.tiles[`[${i}:${v}]`].tileId].fillValue == false){
+					cheXFill = false;
+					continue;
+				}
+
+				//This part of the code gets the tile id that is filled as row 
+				
+				//this.filled.push(TilesManupiulate.tiles[`[${i}:${v}]`].tileId);
+				//console.log(i,v);
+			}
+			if (cheXFill == true){
+
+				this.horizFill.includes(v) ? false : this.horizFill.push(v);
+
+				this.distroyFilledArrBl();
+				console.log("bass",v);
+			}
+
+			this.filled = [];
+			cheXFill = true;
+			
+		}
+
+		
+		
+	}
+
+	distroyFilledArrBl(){
+		//console.log(0,this.horizFill.length,this.horiz[0],this.horiz[1])
+
+
+
+
+/*						for (let vCut=0;vCut<this.horizFill.length;vCut++){
+							for (let hCut=this.horiz[0];hCut<this.horiz[1];hCut++){
+								console.log(this.horizFill[vCut],hCut);
+							}
+						}*/
+
+				let repelArr = {};
+				let sequenceCutter = new Array();
+				let ini = 0;
+				let delList = new Array();
+
+				//console.log("gods please help",this.generation.objectArr)
+
+				for (let vCut=0;vCut<this.horizFill.length;vCut++){
+					for (let hCut=this.horiz[0];hCut<this.horiz[1];hCut++){
+							sequenceCutter[ini] = [hCut,this.horizFill[vCut]];
+							ini++;
+						}
+					}
+this.horizFill = [];
+				ini = 0;
+
+				//console.log(sequenceCutter);
+				let primeArr = new Array();
+				primeArr = [];
+				let dialate = [];
+				let tnt = 0;
+				for ( ini = 0; ini<sequenceCutter.length; ini++){
+					//console.log("object array now printing",this.generation.objectArr.length,this.generation.objectArr);
+
+				for (let t1=0;t1<Generaion.objectArr.length;t1++){
+					//console.log("fix it",t1,this.generation.objectArr[t1].__proto__.shapeArr.length,this.generation.objectArr[t1]);
+					
+					for (let t2=0;t2<Generaion.objectArr[t1].__proto__.shapeArr.length;t2++){
+
+try{
+							//console.log(this.generation.objectArr[t1].__proto__.shapeArr[t2].codenessX,this.generation.objectArr[t1].__proto__.shapeArr[t2].codenessY)
+							dialate[0] = [Generaion.objectArr[t1].__proto__.shapeArr[t2].codenessX,Generaion.objectArr[t1].__proto__.shapeArr[t2].codenessY];
+							
+							//console.log(sequenceCutter[ini][0],sequenceCutter[ini][1],"jjjj",dialate[0][0],dialate[0][1],this.generation.objectArr[t1].__proto__.shapeArr.length);
+							if ((sequenceCutter[ini][0] == dialate[0][0]) && (sequenceCutter[ini][1] == dialate[0][1])){
+								//primeArr[ini+1] = [t1,t2];
+								primeArr[tnt] = [t1,t2];
+								tnt++;
+								//console.log('Hey this is the same thing',primeArr[0],sequenceCutter[ini],t1,t2,primeArr[ini],ini);
+								
+
+
+							}
+							dialate = [];
+
+							//ini++;
+
+}catch(err){
+	console.log("Hey I missed this object",primeArr[0],sequenceCutter[ini])
+}
+						}
+
+				
+
+			}
+		}
+
+console.log("counted items,", ini);
+//console.log("deletion items,", primeArr);
+
+		//wipe me deletion items
+		/*repelArr = {};
+			for (let match = 0;match<primeArr.length;match++){
+				//console.log(this.generation.objectArr.length,"yep there it is");
+				//for (let matcht2 = 0;matcht2<primeArr.length;matcht2++){
+					console.log("prime array",primeArr[match]);
+					if (primeArr[match] != undefined){
+						repelArr[match] = primeArr[match];
+						//console.log("goddd",repelArr);
+					//}
+				}
+				//primeArr = repelArr;
+				//console.log("I have no idea what ",this.generation.objectArr[match].movableDown);
+				//this.generation.objectArr[match].__proto__.movableDown = false;
+				//this.generation.objectArr[match].movableDown = false;
+				//repelArr = {};
+			}
+				primeArr = repelArr;
+				console.log("prime repel array",repelArr);
+				repelArr = {};
+*/
+
+
+
+	for (let ini=0;ini<primeArr.length;ini++){
+		//delete this.generation.objectArr[primeArr[0][0]].__proto__.shapeArr[primeArr[0][1]];
+		//console.log(primeArr[ini][0],primeArr[ini][1],this.generation.objectArr[primeArr[ini][0]].__proto__.shapeArr[primeArr[ini][1]]);
+
+
+		Generaion.objectArr[primeArr[ini][0]].__proto__.shapeArr[primeArr[ini][1]].fillValue = false;
+		//this.generation.objectArr[primeArr[ini][0]].movableDown = false;
+		//console.log("this is not one of them",this.generation.objectArr[primeArr[ini][0]].movableDown);
+		Generaion.objectArr[primeArr[ini][0]].draw();
+
+
+		//delete this.generation.objectArr[primeArr[ini][0]].__proto__.shapeArr[primeArr[ini][1]];
+
+
+			//console.log("solo that the object array",ini,this.generation.objectArr);
+	}
+//console.log("replacer",Generaion.objectArr);
+	/*for (let ini=1;ini<primeArr.length;ini++){
+		//delete this.generation.objectArr[primeArr[0][0]].__proto__.shapeArr[primeArr[0][1]];
+		//console.log(primeArr[ini][0],primeArr[ini][1],this.generation.objectArr[primeArr[ini][0]].__proto__.shapeArr[primeArr[ini][1]]);
+
+		delete Generaion.objectArr[primeArr[ini][0]].__proto__.shapeArr[primeArr[ini][1]];
+
+
+			//console.log("solo that the object array",ini,this.generation.objectArr);
+	}*/
+
+
+
+//console.log("replacer",Generaion.objectArr);
+		//wipe me
+		/*repelArr = {};
+			for (let match = 0;match<Generaion.objectArr.length;match++){
+				//console.log(this.generation.objectArr.length,"yep there it is");
+				for (let matcht2 = 0;matcht2<Generaion.objectArr[match].__proto__.shapeArr.length;matcht2++){
+					if (Generaion.objectArr[match].__proto__.shapeArr[matcht2] != undefined){
+						repelArr[matcht2] = Generaion.objectArr[match].__proto__.shapeArr[matcht2];
+						//console.log("goddd",repelArr);
+					}
+				}
+				Generaion.objectArr[match].__proto__.shapeArr = repelArr;
+				repelArr = {};
+			}*/
+
+
+
+	console.log("replacer",this.generation.objectArr);
+//this.generation.objectArr = [];
+
+	/*for (let match = 0;match<this.generation.objectArr.length;match++){
+		this.generation.objectArr[match].plankCheck();
+		this.generation.objectArr[match].draw();
+	}
+*/
+
+console.log("replacer2",primeArr);
+}
+}
+
 window.onload = function(){
 	//const webSocket = new SocketWs('localhost',4000);
 	//webSocket.createWsServer();
 
 	Helper.constructor();
 
-	let panel = new Canvas(750,700);
+	let panel = new Canvas(1280,700);
 	let canvas = panel.makeCanvas();
+
+	
+
 	let imageReady = new ObjectManx(100,100,'/src/images/earth.jpg',canvas,0,0);
 	imageReady.getImage();
 
@@ -1481,14 +1884,6 @@ window.onload = function(){
 	
 /*
 	//object examples for test execution
-	//basalt object 1
-	const basalt1 = new Basalt('#ffffff',{x:5,y:7},Grid,Grid.arrTile,0.1);
-	
-	basalt1.makeObject();
-	//basalt1.eventMovement();
-	basalt1.plankCheck();
-	
-	//basalt1.getBasaltId;
 
 	//Diamand
 	const Diamand1 = new Diamand('#ffffff',{x:12,y:17},Grid,Grid.arrTile,0.1);
@@ -1497,62 +1892,23 @@ window.onload = function(){
 	//Diamand1.eventMovement();
 	Diamand1.plankCheck();
 
-
-	//Diamand
-	const Limestone1 = new Limestone('#ffffff',{x:9,y:17},Grid,Grid.arrTile,0.1);
-	
-	Limestone1.makeObject();
-	Limestone1.eventMovement();
-	Limestone1.plankCheck();
-	
-
-	//Diamand
-	const marble1 = new Marble('#ffffff',{x:12,y:19},Grid,Grid.arrTile,0.1);
-	
-	marble1.makeObject();
-	marble1.eventMovement();
-	marble1.plankCheck();
-
-
-	//basalt object 2
-	const basalt2 = new Basalt('#ffffff',{x:12,y:12},Grid,Grid.arrTile,0.1);
-	basalt2.makeObject();
-	//basalt2.getBasaltId;
-
-
-	//basalt object 2
-	const basalt3 = new Basalt('#ffffff',{x:6,y:5},Grid,Grid.arrTile,0.1);
-	basalt3.makeObject();
-	//basalt3.getBasaltId;
-
-	//basalt object 2
-	const basalt4 = new Basalt('#ffffff',{x:3,y:11},Grid,Grid.arrTile,0.1);
-	basalt4.makeObject();
-	//basalt4.getBasaltId;
-
-	
-
-	//Granite object 2
-	const Granite1 = new Granite('#ffffff',{x:13,y:22},Grid,Grid.arrTile,0.1);
-	Granite1.makeObject();
-
-	//GraniteRight object 1
-	const GraniteRight1 = new GraniteRight('#ffffff',{x:22,y:28},Grid,Grid.arrTile,0.1);
-	GraniteRight1.makeObject();
-
-	const basaltRight1 = new BasaltRight('#ffffff',{x:7,y:16},Grid,Grid.arrTile,0.1);
-	basaltRight1.makeObject();
 */
-	const block = new BoundryBlock([1,60],[9,32],"rgb(255,255,255)");
+	const block = new BoundryBlock([2,60],[15,32],"rgb(255,255,255)");
 	block.shape();
 
-	const generation = new Generaion(Grid);
+	var generation = new Generaion(Grid);
 	generation.createObject();
+	const loader = [];
+
+	const distroy = new Distroy([16,32],[3,34],generation);
+	distroy.fillValueCollector();
+
 
 
 	//first two values of the camara represents the camara angle width and height then next parameter position of camara pointing to.
 	//first two values should be twice of seconxd values.x
-	const camara = new Camara(50,50,{x:29,y:26});
+	//const camara = new Camara(50,50,{x:29,y:26});
+	const camara = new Camara(60,60,{x:40,y:30});
 	camara.UpdateLock();
 	camara.getUpdatedPos();
 	camara.scaller();
@@ -1573,21 +1929,34 @@ window.onload = function(){
 	//Main Game Loop
 	function loop(){
 
-
+		//console.log(generation.objectArr.length);
+		//Helper.printer("tricycle",300);
+			//Helper.printer(generation.objectArr,300);
+let ice = 0;
 	for (let objectCount=0; objectCount<generation.objectArr.length; objectCount++){
-		if ((generation.objectArr[objectCount].movableDown == false) && (generation.objectArr[objectCount].posLocked == false)){
-			generation.objectArr[objectCount].plankCheck();
-			generation.createObject();
-			console.log('dfdfdfdf');			
-			generation.objectArr[objectCount].posLocked = true;
-		}
-
+		//Helper.printer("bicycle",300);
+		//console.log("how ever");
+			
+		//panel.responsiveScaller();
+//console.log("Generaion five",Generaion.objectArr);
 		generation.objectArr[objectCount].gravity();
 		generation.objectArr[objectCount].draw();
-		//console.log(generation.objectArr[objectCount]);
+		//Helper.printer(generation.objectArr,300);
+		//Helper.printer("kite changer",300);
+		if ((generation.objectArr[objectCount].movableDown == false) && (generation.objectArr[objectCount].posLocked == false)){
+			console.log("by the croud",Generaion.objectArr);
+			generation.objectArr[objectCount].plankCheck();
+			generation.objectArr[objectCount].posLocked = true;
+			distroy.fillValueCollector();
+			generation.createObject();
 
+			//Generaion.objectArr = generation.objectArr;
+			ice++;
+//distroy.distroyFilledArrBl();
+		}
 
 	}
+
 
 
 		//Limestone1.plankCheck();
@@ -1625,6 +1994,8 @@ window.onload = function(){
 				Grid.arrTile[i].drawlines();
 			}
 		}*/
+
+		//Helper.printer(camara.positionArr.length,200)
 
 		//camara view
 		for (let i=0; i<camara.positionArr.length;i++){
